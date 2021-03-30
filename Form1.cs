@@ -28,13 +28,11 @@ namespace Mega2021Downloader
             var client = new MegaApiClient();
             client.LoginAnonymous();
 
-            Uri folderLink = new Uri("https://mega.nz/#F!e1ogxQ7T!ee4Q_ocD1bSLmNeg9B6kBw");
-            IEnumerable<INode> nodes = client.GetNodesFromLink(folderLink);
-            foreach (INode node in nodes.Where(x => x.Type == NodeType.File))
-            {
-                Console.WriteLine($"Downloading {node.Name}");
-                client.DownloadFile(node, node.Name);
-            }
+            Uri fileLink = new Uri("https://mega.nz/#!bkwkHC7D!AWJuto8_fhleAI2WG0RvACtKkL_s9tAtvBXXDUp2bQk");
+            INodeInfo node = client.GetNodeFromLink(fileLink);
+
+            Console.WriteLine($"Downloading {node.Name}");
+            client.DownloadFile(fileLink, node.Name);
 
             client.Logout();
         }
